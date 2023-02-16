@@ -9,7 +9,7 @@ function App({ Component, pageProps }) {
     <ApolloProvider client={client}>
       <Component {...pageProps} />
     </ApolloProvider>
-  );
+  ); 
 }
 
 export default App;
