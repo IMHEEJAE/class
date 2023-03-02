@@ -1,9 +1,9 @@
-import BoardComponent from "@/src/components/units/board/08-board-component";
+import BoardComponet from "../../src/components/units/board/08-board-component";
 
 export default function BoardEdit() {
   return (
     <>
-      <BoardComponent isEdit={true} />
+      <BoardComponet isEdit={true} />
     </>
   );
 }
