@@ -12,6 +12,7 @@ export default function BoardWrite(props) {
   const [contents, setContents] = useState();
   const [나의함수] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
+
   const onClickSubmit = async () => {
     const result = await 나의함수({
       variables: {
@@ -26,18 +27,19 @@ export default function BoardWrite(props) {
   };
 
   const onClickUpdate = async () => {
+    const myvariables = {
+      number: Number(router.query.number),
+    };
+    if (writer) myvariables.writer = writer;
+    if (title) myvariables.title = title;
+    if (contents) myvariables.contents = contents;
     //1.수정 뮤테이션 날리기
     const result = await updateBoard({
-      variables: {
-        number: Number(router.query.number),
-        writer,
-        title,
-        contents,
-      },
+      variables: myvariables,
     });
     //2. 상세페이지로 이동하기
     console.log(result);
-    router.push(`/08-05-boards/${result.data.updateBoard.number}`);
+    router.push(`/09-01-boards/${result.data.updateBoard.number}`);
   };
 
   const onChangeWriter = (event) => {
@@ -69,6 +71,7 @@ export default function BoardWrite(props) {
       onChagneContents={onChagneContents}
       mycolor={mycolor}
       isEdit={props.isEdit}
+      data={props.data}
     />
   );
 }
