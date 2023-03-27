@@ -8,7 +8,7 @@ const FETCH_BOARD = gql`
       writer
       title
       contents
-    }
+    } 
   }
 `;
 const Row = styled.div`

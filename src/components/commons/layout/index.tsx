@@ -24,7 +24,7 @@ export default function Layout(props: ILayoutProps) {
       <LayoutNavigation />
       <div style={{ height: "500px", display: "flex" }}>
         <div style={{ width: "30%", background: "#aaa" }}>사이드바</div>
-        <div style={{ width: "30%" }}>{props.children}</div>
+        <div>{props.children}</div>
       </div>
       <LayoutFooter />
     </>
