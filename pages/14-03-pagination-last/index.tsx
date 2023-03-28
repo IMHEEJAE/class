@@ -3,7 +3,7 @@ import {
   IQuery,
   IQueryFetchBoardsArgs,
 } from "../../src/commons/types/generated/types";
-import { MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
 const FETCH_BOARDS = gql`
   query fetchBoards($page: Int) {
     fetchBoards(page: $page) {
@@ -15,6 +15,7 @@ const FETCH_BOARDS = gql`
 `;
 
 export default function StaticRoutedBoardPage() {
+  const [startPage, setStartPage] = useState(1);
   const { data, refetch } = useQuery<
     Pick<IQuery, "fetchBoards">,
     IQueryFetchBoardsArgs
@@ -22,6 +23,18 @@ export default function StaticRoutedBoardPage() {
   console.log(data);
   const onClickPage = (event: MouseEvent<HTMLSpanElement>) => {
     void refetch({ page: Number(event.currentTarget.id) });
+  };
+  const onClickPrevPage = () => {
+    if (startPage === 1) return;
+    setStartPage(startPage - 10);
+    void refetch({ page: startPage - 10 });
+  };
+
+  const onClickNextPage = () => {
+    // setStartPage((prev) => prev + 10);
+    if(startPage + 10 <= 마지막페이지)
+    setStartPage(startPage + 10);
+    void refetch({ page: startPage + 10 });
   };
   return (
     <>
@@ -31,22 +44,20 @@ export default function StaticRoutedBoardPage() {
           <span style={{ margin: "10px" }}>{el.title}</span>
         </div>
       ))}
+      <span onClick={onClickPrevPage}>이전페이지</span>
       {Array(10)
         .fill(1)
         .map((_, index) => (
-          <span key={index + 1} id={String(index + 1)} onClick={onClickPage}>
-            {index + 1}
+          <span
+            key={index + startPage}
+            id={String(index + startPage)}
+            onClick={onClickPage}
+            style={{ margin: "10px" }}
+          >
+            {index + startPage}
           </span>
         ))}
-      {/* <span id="1" onClick={onClickPage}>
-        1
-      </span>
-      <span id="2" onClick={onClickPage}>
-        2
-      </span>
-      <span id="3" onClick={onClickPage}>
-        3
-      </span> */}
+      <span onClick={onClickNextPage}>다음페이지</span>
     </>
   );
 }
