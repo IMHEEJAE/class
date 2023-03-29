@@ -9,7 +9,6 @@ export default function ApolloSetting(props) {
   return (
     <>
       <ApolloProvider client={client}>
-        <div>zzzzAAABBBCCCDDDEEEFFF</div>
         {props.children}
         </ApolloProvider>
     </>
