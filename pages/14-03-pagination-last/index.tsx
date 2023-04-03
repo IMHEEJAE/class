@@ -60,7 +60,7 @@ export default function StaticRoutedBoardPage() {
         </div>
       ))}
       <span onClick={onClickPrevPage}>이전페이지</span>
-      {/* {Array(10)
+      {Array(10)
         .fill(1)
         .map((_, index) => {
           if (index + startPage <= lastPage) {
@@ -77,21 +77,8 @@ export default function StaticRoutedBoardPage() {
           } else {
             return <span></span>;
           }
-        })} */}
-      {Array(10)
-        .fill(1)
-        .map((_, index) => {
-          index + startPage <= lastPage && (
-            <span
-              key={index + startPage}
-              id={String(index + startPage)}
-              onClick={onClickPage}
-              style={{ margin: "10px" }}
-            >
-              {index + startPage}
-            </span>
-          );
         })}
+
       <span onClick={onClickNextPage}>다음페이지</span>
     </>
   );
