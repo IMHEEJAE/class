@@ -1,3 +1,4 @@
+# schema: http://practice.codebootcamp.co.kr/graphql
 schema: http://backendonline.codebootcamp.co.kr/graphql
 generates:
  ./src/commons/types/generated/types.ts:
