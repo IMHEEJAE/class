@@ -19,7 +19,7 @@ export default function Layout(props: ILayoutProps) {
   const isHiddenHeader = HIDDEN_HEADERS.includes(router.asPath);
   return (
     <>
-      {isHiddenHeader && <LayoutHeader />}
+      {!isHiddenHeader && <LayoutHeader />}
       <LayoutBanner />
       <LayoutNavigation />
       <div style={{ height: "500px", display: "flex" }}>

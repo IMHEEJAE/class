@@ -40,7 +40,7 @@ export default function Login() {
           email,
           password,
         },
-      }); 
+      });
       // 토큰을 만들어 준다!!!!
       const accessToken = result.data?.loginUser.accessToken;
       console.log(accessToken);
@@ -51,12 +51,17 @@ export default function Login() {
         return;
       }
       setAccessToken(accessToken);
+
       // 3. 로그인 성공 페이지로 이동하기
-      void router.push("/22-02-login-success");
+      void router.push("/23-09-login-check-hoc-success");
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
+  // const result = localStorage.getItem("accessToken");
+  // console.log(result);
+  // if (result) setAccessToken(result);
+
   return (
     <>
       이메일 : <input type="text" onChange={onChangeEmail} />

@@ -40,7 +40,7 @@ export default function Login() {
           email,
           password,
         },
-      }); 
+      });
       // 토큰을 만들어 준다!!!!
       const accessToken = result.data?.loginUser.accessToken;
       console.log(accessToken);
@@ -51,12 +51,50 @@ export default function Login() {
         return;
       }
       setAccessToken(accessToken);
+      localStorage.setItem("acessToken", accessToken); // 임시사용 (나중에 지울 예정)
+
       // 3. 로그인 성공 페이지로 이동하기
-      void router.push("/22-02-login-success");
+      void router.push("/23-02-login-localstorage-success");
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
+  //   1. 프리렌더링 예제 - process.browser 방법
+  //   if (process.browser) {
+  //     console.log("지금은 브라우저다!!!");
+  //     const result = localStorage.getItem("accessToken");
+  //     console.log(result);
+  //     if (result) setAccessToken(result);
+  //   } else {
+  //     console.log("지금은 프론트엔드 서버(yarn dev 서버)");
+  //     const result = localStorage.getItem("accessToken");
+  //     console.log(result);
+  //     if (result) setAccessToken(result);
+  //   }
+  //   2. 프리렌더링 예제 - typeof windeow 방법
+  //   if (typeof window !== "undefined") {
+  //     console.log("지금은 브라우저다!!!");
+  //     const result = localStorage.getItem("accessToken");
+  //     console.log(result);
+  //     if (result) setAccessToken(result);
+  //   } else {
+  //     console.log("지금은 프론트엔드 서버(yarn dev 서버)");
+  //     const result = localStorage.getItem("accessToken");
+  //     console.log(result);
+  //     if (result) setAccessToken(result);
+  //   }
+  // 3. 프리렌더링 무시 - useEffect 방법
+  //   useEffect(() => {
+  //     console.log("지금은 브라우저다!!!");
+  //     const result = localStorage.getItem("accessToken");
+  //     console.log(result);
+  //     if (result) setAccessToken(result);
+  //   }, []);
+
+  // const result = localStorage.getItem("accessToken");
+  // console.log(result);
+  // if (result) setAccessToken(result);
+
   return (
     <>
       이메일 : <input type="text" onChange={onChangeEmail} />
