@@ -19,6 +19,7 @@ module.exports = {
     "@typescript-eslint/triple-slash-reference": "off",
     "@typescript-eslint/lines-between-class-members": "off",
     "@typescript-eslint/consistent-type-imports": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
     "react/display-name": "off",
   },
 };
