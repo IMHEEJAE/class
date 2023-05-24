@@ -8,8 +8,10 @@ const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
 const CREATE_BOARD = gql`
-  mutation createBoard($createBoardInput: CreateBoardInput) {
-    createBoard(createBoardInput: $createBoardInput)
+  mutation createBoard($createBoardInput: CreateBoardInput!) {
+    createBoard(createBoardInput: $createBoardInput) {
+      _id
+    }
   }
 `;
 export default function WebEditorPage() {
@@ -29,7 +31,7 @@ export default function WebEditorPage() {
     // onChange 됐다고 react-hook-form에 강제로 알려주는 기능
     void trigger("contents");
   };
-  const onClickSubmit = async (data) => {
+  const onClickSubmit = async (data: any) => {
     const result = await createBoard({
       variables: {
         createBoardInput: {
@@ -40,7 +42,10 @@ export default function WebEditorPage() {
         },
       },
     });
-    router.push("")
+    if (typeof result.data?.createBoard._id !== "string") return;
+    void router.push(
+      `/27-04-web-editor-detail/${result.data?.createBoard._id}`
+    );
     // const { Modal } = dynamic(async () => await import("antd"), { ssr: false }); // code-splitting(코드스플릿팅)
     // Modal.success({ content: "등록 성공" });
   };

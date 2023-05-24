@@ -1,6 +1,7 @@
 // import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
+
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
@@ -9,9 +10,9 @@ export default function WebEditorPage() {
   const onChangeContents = (value: string) => {
     console.log(value);
   };
-  const onClickSubmit = () => {
-    // const { Modal } = dynamic(async () => await import("antd"), { ssr: false }); // code-splitting(코드스플릿팅)
-    // Modal.success({ content: "등록 성공" });
+  const onClickSubmit = async () => {
+    const { Modal } = await import("antd");
+    Modal.success({ content: "등록 성공" });
   };
   return (
     <>
