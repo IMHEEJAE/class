@@ -43,7 +43,7 @@ export default function StaticRoutedBoardPage() {
           pageStart={0}
           loadMore={onLoadMore}
           hasMore={true}
-          useWindow={false}
+          useWindow={false} 
         >
           {data?.fetchBoards.map((el) => (
             <div key={el._id}>

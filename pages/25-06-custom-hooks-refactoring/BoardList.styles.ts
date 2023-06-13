@@ -69,8 +69,8 @@ export const EditBtn = styled(Button)`
   height: 100%;
   padding: 10px 16px;
   :hover {
-    border-color: #5729ff !important;
-    color: #5729ff !important;
+    border-color: #d4adfc !important;
+    color: #d4adfc !important;
   }
 `;
 
@@ -81,6 +81,6 @@ export const EditIcon = styled.img`
 `;
 
 export const StrongText = styled.span`
-  color: ${(props: IMatched) => (props.isMatched ? "#5729ff" : "#000")};
+  color: ${(props: IMatched) => (props.isMatched ? "#D4ADFC" : "#000")};
   font-weight: ${(props: IMatched) => (props.isMatched ? "bold" : "normal")};
 `;
