@@ -1,0 +1,112 @@
+<!-- `http://numbersapi.com/random?min1&max=200`-->
+<!-- `https://koreanjson.com/posts/${num}`-->
+<!-- `https://koreanjson.com/posts?userId=${userId}`-->
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <title>콜백</title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script>
+            // 순서
+            // 1. 랜더한 숫자 받아오기(1-200)
+            // 2. 70번 게시글 조회
+            // 3. 작성자가 작성한 다른 글들 조회하기
+            // function addEventListener(aaa, bbb) {
+            //     // 세팅된 api 주소로 요청
+            //     const res = 70; // 세팅된 api 주소로부터 받아온 결과
+            //     if (aaa === "load") {
+            //         bbb(res);
+            //     }
+            // }
+            const onclickCallback = () => {
+                const aa = new XMLHttpRequest();
+                aa.open("get", `http://numbersapi.com/random?min1&max=200`);
+                aa.send();
+                aa.addEventListener("load", (res) => {
+                    console.log(res); // api요청 결과
+                    const num = res.target.response.split("")[0];
+                    const bb = new XMLHttpRequest();
+                    bb.open("get", `https://koreanjson.com/posts/${num}`);
+                    bb.send();
+                    bb.addEventListener("load", (res) => {
+                        console.log(res);
+                        const userId = JSON.parse(res.target.response).UserId; // 8 작성자 ID
+
+                        const cc = new XMLHttpRequest();
+                        cc.open(
+                            "get",
+                            `https://koreanjson.com/posts?userId=${userId}`
+                        );
+                        cc.send();
+                        cc.addEventListener("load", (res) => {
+                            console.log(res); // 최종 api요청 결과
+                        });
+                    });
+                });
+            };
+
+            // new Promise((성공했을때실행시킬함수, 실패했을때실행시킬함수) => {
+            //     try {
+            //         // 여기서 api 요청을 한다면?
+            //         const response = "철수"; // 백엔드에서 "철수" 데이터를 받아옴
+            //         성공했을때실행시킬함수(response);
+            //     } catch (error) {
+            //         실패했을때실행시킬함수("실패했습니다.");
+            //     }
+            // })
+            //     .then((qqq) => {
+            //         console.log(qqq); // 철수
+            //     })
+            //     .catch((rrr) => {
+            //         console.log(rrr); // 실패했습니다
+            //     });
+
+            const axios = {
+                get: () => {
+                    return new Promise((성공시, 실패시) => {});
+                },
+                post: () => {
+                    return new Promise((성공시, 실패시) => {});
+                },
+            };
+            const onclickPromise = () => {
+                console.log("1번째로 실행");
+                axios
+                    .get(`http://numbersapi.com/random?min1&max=200`)
+                    .then((qqq) => {
+                        console.log("2번째로 실행");
+                        return axios.get(
+                            `http://numbersapi.com/random?min1&max=200`
+                        );
+                    })
+                    .then(() => {
+                        console.log("3번째로 실행");
+                        return axios.get(
+                            `http://numbersapi.com/random?min1&max=200`
+                        );
+                    })
+                    .then((qqq) => {
+                        console.log("4번째로 실행");
+                        // qqq 최종 결과
+                    });
+                console.log("5번째로 실행");
+            };
+            // axios, fetch 등 => 대표적인 Promise를 지원하는 기능
+            // axios, fetch 등을 기다리는 2가지 방법
+            // 1. .then()활용
+            // 2. await 활용    => 주의) await는 아무데나 붙인다고 뒤에껄 기다리는게 아님.
+            const onclickAsyncAwait = async () => {
+                await axios.get(`http://numbersapi.com/random?min1&max=200`);
+                await axios.get(`http://numbersapi.com/random?min1&max=200`);
+                await axios.get(`http://numbersapi.com/random?min1&max=200`);
+            };
+        </script>
+    </head>
+    <body>
+        <button onclick="onclickCallback()">Callback 연습하기</button>
+        <button onclick="onclickPromise()">Promise 연습하기</button>
+        <button onclick="onclickAsyncAwait()">AsyncAwait 연습하기</button>
+    </body>
+</html>
