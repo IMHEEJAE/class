@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <title>이벤트 루프</title>
+    <script>
+      const onClickLook = () => {
+        console.log("시작");
+
+        // 비동기작업(매크로큐에 들어감)
+        setTimeout(() => {
+          // 비동기작업(마이크로큐에 들어감)
+          new Promise((resolve) => resolve("철수")).then(() => {
+            console.log("나는 Promise(setTimeout 안에서 실행될 거에요)");
+          });
+          console.log("나는 setTimeout 매크로큐 0초 뒤에 실행 될 거에요");
+        }, 0);
+
+        // 비동기작업(마이크로큐에 들어감)
+        new Promise((resolve) => resolve("철수")).then(() => {
+          console.log("나는 Promise(1) .. 마이크로큐 0초 뒤 실행될 거예요");
+        });
+
+        setInterval(() => {
+          console.log("나는 setInterval 매크로큐 !! 0초마다 실행");
+        });
+
+        let sum = 0;
+        for (let i = 0; i <= 900000000; i++) {
+          sum += 1;
+        }
+        // 비동기작업(마이크로큐에 들어감)
+        new Promise((resolve) => resolve("철수")).then(() => {
+          console.log("나는 Promise(2) .. 마이크로큐 0초 뒤 실행될 거예요");
+        });
+
+        console.log("끝");
+      };
+
+      // 실행순서 !!!!
+
+      // 시작
+      // (시간 걸림)
+      // Promise(1)
+      // Promise(2)
+      // setTimeout 매크로큐 0초뒤에 실행될거에요
+      // Promise(setTimeout 안)
+      // 나는 setInterval 매크로
+    </script>
+  </head>
+  <body>
+    <button onclick="onClickLook()">시작하기</button>
+  </body>
+</html>
