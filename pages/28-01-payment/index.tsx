@@ -9,7 +9,7 @@ export default function PaymentPage(): JSX.Element {
     IMP.request_pay(
       {
         // param
-        pg: "kakaopay",
+        pg: "html5_inicis",
         pay_method: "card",
         // 주문번호
         // merchant_uid: "ORD20180131-0000011",
@@ -20,12 +20,12 @@ export default function PaymentPage(): JSX.Element {
         buyer_tel: "010-4242-4242",
         buyer_addr: "서울특별시 강남구 신사동",
         buyer_postcode: "01181",
-        m_redirect_url:"http://localhost:3000/28-01-payment" // 모바일 결제 시 페이지 주소가 바뀜. 결제 끝나고 돌아 갈 주소
+        m_redirect_url: "http://localhost:3000/28-01-payment", // 모바일 결제 시 페이지 주소가 바뀜. 결제 끝나고 돌아 갈 주소
       },
       (rsp: any) => {
         // callback
         if (rsp.success) {
-          // 결제 성공 시 로직, 
+          // 결제 성공 시 로직,
           console.log("성공", rsp);
           // 백엔드에 결제관련 데이터 넘겨주기 => 즉, 뮤테이션 실행하기기
           // createPointTransactionOfLoading => 돈을주고 포인트를 사는 api

@@ -21,7 +21,7 @@ export default function LoginSuccess() {
   // 3. axios처럼 사용하는 방법(data는 글로벌스테이트에 저장)
   // const client = useApolloClient()
   // client.query() <==> axios.get()
-
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const client = useApolloClient();
   const onClickBtn = async (): Promise<void> => {
     const result = await client.query({
@@ -30,6 +30,11 @@ export default function LoginSuccess() {
     console.log(result);
   };
 
-  return <button onClick={onClickBtn}>클릭하세요</button>;
+  return (
+    <>
+      <button onClick={onClickBtn}>클릭하세요</button>
+      {data?.fetchUserLoggedIn.name}님 환영합니다.
+    </>
+  );
   // return <>{data?.fetchUserLoggedIn.name}님 환영합니다.</>;
 }
