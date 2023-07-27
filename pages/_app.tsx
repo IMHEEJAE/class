@@ -6,14 +6,14 @@ import ApolloSetting from "../src/components/commons/apollo";
 import Layout from "../src/components/commons/layout";
 import { RecoilRoot } from "recoil";
 
-function App({ Component }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <ApolloSetting>
         <>
           <Global styles={globalStyles} />
           <Layout>
-            <Component />
+            <Component {...pageProps} />
           </Layout>
         </>
       </ApolloSetting>
